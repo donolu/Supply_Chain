@@ -8,6 +8,7 @@ import datetime
 
 # Create your views here.
 
+
 @login_required
 def category_list(request):
     context = {"category_list": Category.objects.all()}
@@ -32,12 +33,16 @@ def category_form(request, id=0):
             category = Category.objects.get(pk=id)
             form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
-            category = form.save(commit=False) # Save the form, but don't commit to the database yet
-            category.created_by = request.user  # Set the created_by field to the logged-in user
+            category = form.save(
+                commit=False
+            )  # Save the form, but don't commit to the database yet
+            category.created_by = (
+                request.user
+            )  # Set the created_by field to the logged-in user
             category.created_on = datetime.datetime.now()
             form.save()
         return redirect("category_list")
-    
+
 
 @login_required
 def category_delete(request, id):
@@ -48,13 +53,13 @@ def category_delete(request, id):
 
 @login_required
 def subcategory_list(request):
-    subcategories = Subcategory.objects.order_by('pk')
+    subcategories = Subcategory.objects.order_by("pk")
 
     # Create a Paginator instance and specify the number of items per page
-    paginator = Paginator(subcategories, request.GET.get('per_page', 6))
+    paginator = Paginator(subcategories, request.GET.get("per_page", 6))
 
     # Get the current page number from the request
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
 
     # Retrieve the page using the page number
     page = paginator.get_page(page_number)
@@ -85,9 +90,9 @@ def subcategory_form(request, id=0):
             subcategory.created_by = request.user
             subcategory.updated_on = datetime.datetime.now()
             form.save()
+
         return redirect("subcategory_list")
 
-    
 
 @login_required
 def subcategory_delete(request, id):
@@ -97,25 +102,29 @@ def subcategory_delete(request, id):
 
 
 def getsubcategories(request):
-    category_id = request.GET.get('category_id')
-    subcategories = Subcategory.objects.filter(category_name_id=category_id).values('id', 'name')
+    category_id = request.GET.get("category_id")
+    subcategories = Subcategory.objects.filter(category_name_id=category_id).values(
+        "id", "name"
+    )
     return JsonResponse(list(subcategories), safe=False)
 
 
 @login_required
 def product_list(request):
-    product_list = Details.objects.order_by('pk')
+    product_list = Details.objects.order_by("pk")
 
-     # Create a Paginator instance and specify the number of items per page
-    paginator = Paginator(product_list, request.GET.get('per_page', 6))
+    # Create a Paginator instance and specify the number of items per page
+    paginator = Paginator(product_list, request.GET.get("per_page", 6))
 
     # Get the current page number from the request
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
 
     # Retrieve the page using the page number
     page = paginator.get_page(page_number)
 
-    context = {"page": page,}
+    context = {
+        "page": page,
+    }
     return render(request, "product/productlist.html", context)
 
 
@@ -140,7 +149,7 @@ def product_form(request, id=0):
             product.updated_on = datetime.datetime.now()
             form.save()
         return redirect("product_list")
-    
+
 
 @login_required
 def product_delete(request, id):
@@ -151,7 +160,7 @@ def product_delete(request, id):
 
 @login_required
 def create_transaction(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
@@ -159,15 +168,15 @@ def create_transaction(request):
             stock = product.stock
 
             # Upddate stock quantitiy based on transction type
-            if transaction.transaction_type == 'sale':
+            if transaction.transaction_type == "sale":
                 stock.quantity -= transaction.quantity
-            elif transaction.transaction_type == 'purchase':
+            elif transaction.transaction_type == "purchase":
                 stock.quantity += transaction.quantity
-            elif transaction.transaction_type == 'return_inward':
+            elif transaction.transaction_type == "return_inward":
                 stock.quantity += 0
-            elif transaction.transaction_type == 'return_outward':
+            elif transaction.transaction_type == "return_outward":
                 stock.quantity -= transaction.quantity
-            elif transaction.transaction_type == 'disposal':
+            elif transaction.transaction_type == "disposal":
                 stock.quantity -= transaction.quantity
 
             stock.save()
@@ -183,4 +192,3 @@ def create_transaction(request):
 def transaction_list(request):
     context = {"transctions": Transaction.objects.all()}
     return render(request, "/product/transaction_list.html"), context
-

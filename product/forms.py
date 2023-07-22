@@ -58,7 +58,7 @@ class ProductForm(forms.ModelForm):
         self.fields["unit"].empty_label = "Choose Unit"
 
         # Set the SKU field as readonly
-        # self.fields["sku"].widget.attrs["readonly"] = True
+        self.fields["sku"].widget.attrs["readonly"] = True
 
     def clean_sku(self):
         # Override the clean_sku method to preserve the sku value during form submission
