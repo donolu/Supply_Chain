@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Are you sure you want to delete this category?</h3>
+        <div class="modal-buttons">
+            <a id="deleteConfirm" class="btn btn-danger" href="#">Delete</a>
+            <a id="deleteCancel" class="btn btn-secondary" href="#">Cancel</a>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+{% load static %}
+<div class="page-header">
+    <div class="page-title">
+        <h4>Product list</h4>
+        <h6>View/Edit product Sub Category</h6>
+    </div>
+    <div class="page-btn">
+        <a href="{% url 'product_form' %}" class="btn btn-added">
+            <img src="{% static 'assets/img/icons/plus.svg' %}" class="me-1" alt="img">Add Product
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-top">
+            <div class="search-set">
+                <div class="search-path">
+                </div>
+                <div class="search-input">
+                </div>
+            </div>
+            <div class="wordset">
+                <ul>
+                    <li>
+                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                src="{% static 'assets/img/icons/pdf.svg' %}" alt="img"></a>
+                    </li>
+                    <li>
+                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                src="{% static 'assets/img/icons/excel.svg' %}" alt="img"></a>
+                    </li>
+                    <li>
+                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                src="{% static 'assets/img/icons/printer.svg' %}" alt="img"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <label class="checkboxs">
+                                <input type="checkbox" id="select-all">
+                                <span class="checkmarks"></span>
+                            </label>
+                        </th>
+                        <th>Product Name</th>
+                        <th>SKU</th>
+                        <th>Category</th>
+                        <th>Sub Category</th>
+                        <th>Created By</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in page %}
+                    <tr>
+                        <td>
+                            <label class="checkboxs">
+                                <input type="checkbox">
+                                <span class="checkmarks"></span>
+                            </label>
+                        </td>
+                        <td>{{product.productname}}</td>
+                        <td>{{product.sku}}</td>
+                        <td>{{product.category_name}}</td>
+                        <td>{{product.sub_category}}</td>
+                        <td>{{product.created_by}}</td>
+                        <td>
+                            <a class="me-3" href="{% url 'product_update' product.id %}">
+                                <img src="{% static 'assets/img/icons/edit.svg' %}" alt="img">
+                            </a>
+                            <a class="me-3 confirm-text" href="{% url 'product_delete' product.id %}"
+                                onclick="return confirmDelete();">
+                                <img src="{% static 'assets/img/icons/delete.svg' %}" alt="Delete">
+                            </a>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+            <!-- Display pagination links -->
+<div style="text-align: left; margin-bottom: 10px;">
+    <nav aria-label="Pagination">
+        <ul class="pagination">
+            {% if page.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="false">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+            {% endif %}
+
+            {% for num in page.paginator.page_range %}
+                {% if page.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ num }}" style="background-color: #ff9f43; color: white;">{{ num }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+
+</div>
+{% endblock content %}

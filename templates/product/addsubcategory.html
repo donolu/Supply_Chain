@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+
+<div class="page-header">
+    <div class="page-title">
+        <h4>Product Add sub Category</h4>
+        <h6>Create new product Category</h6>
+    </div>
+</div>
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="form-group">
+                             {{form.category_name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="form-group">
+                        {{form.name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="form-group">
+                        {{form.subcategory_code|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        {{form.description}}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                    <a href="{% url 'subcategory_list' %}" class="btn btn-cancel">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock content %}

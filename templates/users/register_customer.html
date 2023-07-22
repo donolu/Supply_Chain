@@ -1,0 +1,51 @@
+{% extends 'users/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+Login - My Website
+{% endblock %}
+
+{% block content %}
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="border border-3 border-primary"></div>
+        <div class="card bg-white shadow-lg">
+          <div class="card-body p-5">
+            <form method="POST" class="mb-3 mt-md-4">
+              {% csrf_token %}
+              <h2 class="fw-bold mb-2 text-uppercase ">Brand</h2>
+              <p class=" mb-5">Hey! Register as a Customer</p>
+              <div class="mb-3">
+                <label for="email" class="form-label ">Email address</label>
+                {% render_field form.email class="form-control" placeholder="name@example.com" %}
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label ">Username</label>
+                {% render_field form.username class="form-control" placeholder="username" %}
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label ">Password</label>
+                {% render_field form.password1 class="form-control" %}
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label ">Confirm Password</label>
+                {% render_field form.password2 class="form-control" %}
+              </div>
+              <p class="small"><a class="text-primary" href="forget-password.html">Forgot password?</a></p>
+              <div class="d-grid">
+                <button class="btn btn-outline-dark">Login</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
