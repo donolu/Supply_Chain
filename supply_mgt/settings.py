@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "widget_tweaks",
+    # Must be the last in list
+    "django_cleanup.apps.CleanupConfig",
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -120,11 +122,52 @@ USE_I18N = True
 
 USE_TZ = True
 
-#SESSION_COOKIE_AGE = 300  # 5 minutes
+# SESSION_COOKIE_AGE = 300  # 5 minutes
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+
+# logging - this directory & file needs to be created first!z
+LOG_FILE = os.path.join(BASE_DIR, "logging/ssm.log")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+        },
+        "simple": {"format": "%(asctime)s %(levelname)s %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",  # Set the desired logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": LOG_FILE,
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django_q": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}
+
 
 STATIC_URL = "/static/"
 
@@ -132,9 +175,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 # Default primary key field type

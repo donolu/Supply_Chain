@@ -1,38 +1,36 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model
 
-# Create your tests here.
+from users.models import Profile
 
 
 class ProfileTestCase(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            username="testuser",
-            email="test@example.com",
-            password="testpassword",
+        self.user = User.objects.create_user(
+            username="testuser", email="testuser@example.com", password="testpassword"
+        )
+        self.profile = Profile.objects.create(
+            user=self.user,
             first_name="John",
             last_name="Doe",
+            bio="Lorem ipsum dolor sit amet.",
         )
+        self.login_url = reverse("login")
+        self.profile_url = reverse("profile")
 
     def test_profile_page(self):
-        # Log in the user
+        # Ensure the profile page is accessible to authenticated users
         self.client.login(username="testuser", password="testpassword")
-
-        # Retrieve the profile page URL using the named URL pattern
-        url = reverse("profile")
-
-        # Send a GET request to the profile page URL
-        response = self.client.get(url)
-
-        # Check that the response has a status code of 200 (successful)
+        response = self.client.get(self.profile_url)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "John")  # Make sure the first name is displayed
+        self.assertContains(response, "Doe")  # Make sure the last name is displayed
+        self.assertContains(
+            response, "Lorem ipsum dolor sit amet."
+        )  # Make sure the bio is displayed
 
-        # Check that the response contains the user's first name
-        self.assertContains(response, "John")
-
-        # Check that the response contains the user's last name
-        self.assertContains(response, "Doe")
-
-        # Check that the response contains the user's email
-        self.assertContains(response, "test@example.com")
+    def test_profile_page_redirect_for_unauthenticated_users(self):
+        # Ensure unauthenticated users are redirected to the login page
+        response = self.client.get(self.profile_url)
+        self.assertRedirects(response, self.login_url + "?next=" + self.profile_url)

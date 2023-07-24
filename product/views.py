@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProductForm, TransactionForm, CategoryForm, SubcategoryForm
 from .models import Details, Stock, Transaction, Category, Subcategory
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import datetime
+import logging
 
 # Create your views here.
 
@@ -102,20 +103,18 @@ def subcategory_delete(request, id):
 
 
 def getsubcategories(request):
-    category_id = request.GET.get("category_id")
-    subcategories = Subcategory.objects.filter(category_name_id=category_id).values(
-        "id", "name"
+    category_id = request.GET.get("category_name_id")
+    subcategories = Subcategory.objects.filter(category_name_id=category_id)
+    return render(
+        request, "product/subcategory_dropdown.html", {"subcategories": subcategories}
     )
-    return JsonResponse(list(subcategories), safe=False)
 
 
 @login_required
 def product_list(request):
     product_list = Details.objects.order_by("pk")
-
     # Create a Paginator instance and specify the number of items per page
     paginator = Paginator(product_list, request.GET.get("per_page", 6))
-
     # Get the current page number from the request
     page_number = request.GET.get("page")
 
@@ -129,25 +128,38 @@ def product_list(request):
 
 
 @login_required
-def product_form(request, id=0):
+def product_form(request, id=None):
+    logger = logging.getLogger("django")
+
     if request.method == "GET":
-        if id == 0:
+        if id is None:
             form = ProductForm()
         else:
-            product = Details.objects.get(pk=id)
+            product = get_object_or_404(Details, pk=id)
             form = ProductForm(instance=product)
-        return render(request, "product/addproduct.html", {"form": form})
+        context = {"form": form}
+        return render(request, "product/addproduct.html", context)
     else:
-        if id == 0:
+        if id is None:
             form = ProductForm(request.POST, request.FILES)
         else:
-            product = Details.objects.get(pk=id)
-            form = ProductForm(request.POST, instance=product)
+            product = get_object_or_404(Details, pk=id)
+            form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             product = form.save(commit=False)
             product.created_by = request.user
             product.updated_on = datetime.datetime.now()
-            form.save()
+            try:
+                form.save()
+                logger.info("Product form save successfully.")
+            except Exception as e:
+                logger.exception("Error saving product form: %s", e)
+        else:
+            # Print the form errors to the console
+            print(form.errors.as_data())
+            # Alternatively, you can log the form errors using the logging module
+            logger = logging.getLogger("django")
+            logger.error(form.errors.as_json())
         return redirect("product_list")
 
 

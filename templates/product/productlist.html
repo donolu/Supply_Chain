@@ -70,6 +70,7 @@
                         <th>Category</th>
                         <th>Sub Category</th>
                         <th>Created By</th>
+                        <th>Created Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -86,7 +87,8 @@
                         <td>{{product.sku}}</td>
                         <td>{{product.category_name}}</td>
                         <td>{{product.sub_category}}</td>
-                        <td>{{product.created_by}}</td>
+                        <td>{{product.created_by.get_full_name}}</td>
+                        <td>{{product.created_on|date:"Y-m-d h:i:s A"}}</td>
                         <td>
                             <a class="me-3" href="{% url 'product_update' product.id %}">
                                 <img src="{% static 'assets/img/icons/edit.svg' %}" alt="img">
@@ -103,44 +105,46 @@
             </table>
         </div>
     </div>
-            <!-- Display pagination links -->
-<div style="text-align: left; margin-bottom: 10px;">
-    <nav aria-label="Pagination">
-        <ul class="pagination">
-            {% if page.has_previous %}
+    <!-- Display pagination links -->
+    <div style="text-align: left; margin-bottom: 10px;">
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                {% if page.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="false">Previous</a>
+                    <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1"
+                        aria-disabled="false">Previous</a>
                 </li>
-            {% else %}
+                {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
                 </li>
-            {% endif %}
-
-            {% for num in page.paginator.page_range %}
-                {% if page.number == num %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="?page={{ num }}" style="background-color: #ff9f43; color: white;">{{ num }}</a>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                    </li>
                 {% endif %}
-            {% endfor %}
 
-            {% if page.has_next %}
+                {% for num in page.paginator.page_range %}
+                {% if page.number == num %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?page={{ num }}" style="background-color: #ff9f43; color: white;">{{ num
+                        }}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
                 </li>
-            {% else %}
+                {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Next</span>
                 </li>
-            {% endif %}
-        </ul>
-    </nav>
-</div>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 
 
 </div>

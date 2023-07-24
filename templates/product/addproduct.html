@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 {% load crispy_forms_tags %}
+
 
 {% block content %}
 {% load static %}
@@ -10,32 +11,30 @@
         <h6>Create new product</h6>
     </div>
 </div>
-<form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+<form action="" id="productForm" method="post" data-subcategory-url="{% url 'getsubcategories' %}" autocomplete=" off"
+    enctype="multipart/form-data">
     {% csrf_token %}
     <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        {{form.productname|as_crispy_field}}
+                        {% render_field form.productname|as_crispy_field %}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        {{form.category_name|as_crispy_field}}
+                        {% render_field form.category_name|as_crispy_field %}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label for="subcategory-dropdown">Sub Category</label>
-                        <select name="subcategory" id="subcategory-dropdown" class="form-control" disabled>
-                            <option value="">Select Subcategory</option>
-                        </select>
+                        {% render_field form.sub_category|as_crispy_field %}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        {{form.sku|as_crispy_field}}
+                        {% render_field form.sku class="d-none"|safe|as_crispy_field class="form-control" %}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
@@ -74,35 +73,5 @@
         </div>
     </div>
 </form>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-  $("#id_category_name").change(function() {
-    var category_id = $(this).val();
-    if (category_id !== "") {
-      $("#subcategory-dropdown").prop("disabled", false);
-      $.ajax({
-        url: "{% url 'get_subcategories' %}",
-        data: { category_id: category_id },
-        dataType: "json",
-        success: function(data) {
-          $("#subcategory-dropdown").empty();
-          $("#subcategory-dropdown").append('<option value="">Select Subcategory</option>');
-          $.each(data, function(key, value) {
-            $("#subcategory-dropdown").append('<option value="' + value.id + '">' + value.name + '</option>');
-          });
-        },
-        error: function(xhr, status, error) {
-          console.error(xhr.responseText);
-        }
-      });
-    } else {
-      $("#subcategory-dropdown").empty().prop("disabled", true);
-      $("#subcategory-dropdown").append('<option value="">Select Subcategory</option>');
-    }
-  });
-});
-</script>
 
 {% endblock content %}
