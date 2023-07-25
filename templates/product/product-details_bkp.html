@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="page-header">
+    <div class="page-title">
+        <h4>Product Details</h4>
+        <h6>Full details of a product</h6>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="bar-code-view">
+                    <img src="{{ product.barcode_image.url }}" alt="barcode" class="barcode-image">
+                    <a class="printimg">
+                        <img src="{% static 'assets/img/icons/printer.svg' %}" alt="print">
+                    </a>
+                </div>
+                <div class="productdetails">
+                    <ul class="product-bar">
+                        <li>
+                            <h4>Product</h4>
+                            <h6>{{ product.productname }} </h6>
+                        </li>
+                        <li>
+                            <h4>Category</h4>
+                            <h6>{{ product.category_name }}</h6>
+                        </li>
+                        <li>
+                            <h4>Sub Category</h4>
+                            <h6>{{ product.sub_category }}</h6>
+                        </li>
+                        <li>
+                            <h4>Unit</h4>
+                            <h6>{{ product.unit }}</h6>
+                        </li>
+                        <li>
+                            <h4>SKU</h4>
+                            <h6>{{ product.sku }}</h6>
+                        </li>
+                        <li>
+                            <h4>Status</h4>
+                            <h6> {% if product.status %}
+                                {{ product.status }}
+                                {% else %}
+                                Not specified
+                                {% endif %}</h6>
+                        </li>
+                        <li>
+                            <h4>Created By</h4>
+                            <h6>{{ product.created_by.get_full_name }}</h6>
+                        </li>
+                        <li>
+                            <h4>Created On</h4>
+                            <h6>{{product.created_on|date:"Y-m-d h:i:s A"}}</h6>
+                        </li>
+                        <li>
+                            <h4>Last Updated On</h4>
+                            <h6>{{ product.updated_on|date:"Y-m-d h:i:s A" }}</h6>
+                        </li>
+                        <li>
+                            <h4>Description</h4>
+                            <h6> {% if product.description %}
+                                {{ product.description }}
+                                {% else %}
+                                Not specified
+                                {% endif %}</h6>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-4 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="slider-product-details">
+                    <div class="owl-carousel owl-theme">
+                        <div class="slider-product">
+                            <img src="{{ product.product_image.url }}" alt="img">
+                            <h4>{{ product.product_image.name }}</h4>
+                            <h6>{{ product.product_image.size|filesizeformat }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock content %}
