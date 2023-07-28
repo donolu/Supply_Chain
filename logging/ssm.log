@@ -5017,3 +5017,7 @@ INFO 2023-07-28 16:34:51,238 basehttp 42327 6169145344 "GET /product/product_lis
 INFO 2023-07-28 16:34:55,568 basehttp 42327 6169145344 "GET /product/subcategory_list/ HTTP/1.1" 200 21970
 INFO 2023-07-28 16:34:59,811 basehttp 42327 6169145344 "GET /product/subcategory_list/?page=2 HTTP/1.1" 200 22114
 INFO 2023-07-28 16:35:12,949 basehttp 42327 6169145344 "GET /product/subcategory_list/?page=3 HTTP/1.1" 200 19936
+INFO 2023-07-28 16:48:28,251 autoreload 46135 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 16:48:43,533 basehttp 46135 6136082432 "GET /product/subcategory_list/?page=3 HTTP/1.1" 200 19936
+INFO 2023-07-28 16:48:43,554 basehttp 46135 6152908800 "GET /static/assets/js/custom.js HTTP/1.1" 200 1231
+INFO 2023-07-28 16:48:43,555 basehttp 46135 6136082432 "GET /static/assets/css/style.css HTTP/1.1" 200 160960
