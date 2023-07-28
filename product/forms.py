@@ -1,5 +1,5 @@
 from django import forms
-from .models import Details, Transaction, Category, Subcategory
+from .models import Details, Transaction, Category, Subcategory, Batch
 from widget_tweaks.templatetags.widget_tweaks import add_class
 
 
@@ -98,8 +98,23 @@ class ProductForm(forms.ModelForm):
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ["product", "transaction_type", "quantity", "sale_id"]
+        fields = ["product", "batch", "transaction_type", "quantity", "sale_id"]
         # Add other fields as needed
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["batch"].queryset = Batch.objects.none()
+
+        if "product" in self.data:
+            try:
+                product_id = int(self.data.get("product"))
+                self.fields["batch"].queryset = Batch.objects.filter(
+                    product_id=product_id
+                )
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields["batch"].queryset = self.instance.product.productbatch_set
 
     def clean_sale_id(self):
         transaction_type = self.cleaned_data.get("transaction_type")

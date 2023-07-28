@@ -206,10 +206,10 @@ def create_transaction(request):
             return redirect("transaction_list")
     else:
         form = TransactionForm()
-    return render(request, "/product/transaction_create.html", {"form": form})
+    return render(request, "product/transaction_create.html", {"form": form})
 
 
 @login_required
 def transaction_list(request):
     context = {"transctions": Transaction.objects.all()}
-    return render(request, "/product/transaction_list.html"), context
+    return render(request, "product/transaction_list.html"), context

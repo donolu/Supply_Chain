@@ -5028,3 +5028,36 @@ INFO 2023-07-28 19:25:17,054 basehttp 46135 6152908800 - Broken pipe from ('127.
 INFO 2023-07-28 19:25:17,055 basehttp 46135 6136082432 - Broken pipe from ('127.0.0.1', 64385)
 INFO 2023-07-28 19:25:58,082 basehttp 46135 6136082432 "GET /product/subcategory_list/?page=2 HTTP/1.1" 200 22114
 INFO 2023-07-28 19:26:00,621 basehttp 46135 6136082432 "GET /product/subcategory_list/?page=3 HTTP/1.1" 200 19936
+INFO 2023-07-28 20:34:16,138 autoreload 64996 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 20:34:19,293 autoreload 64996 8516132992 /Users/deji/Dev/Supply_Chain/product/views.py changed, reloading.
+INFO 2023-07-28 20:34:19,548 autoreload 65008 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:15:04,669 autoreload 65008 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:15:05,041 autoreload 67947 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:15:14,280 autoreload 67947 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:15:14,606 autoreload 67971 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:20:29,602 autoreload 67971 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:20:29,972 autoreload 68391 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:20:43,281 autoreload 68391 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:20:43,591 autoreload 68427 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:21:55,837 autoreload 68427 8516132992 /Users/deji/Dev/Supply_Chain/product/forms.py changed, reloading.
+INFO 2023-07-28 21:21:56,206 autoreload 68538 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:51:18,872 autoreload 68538 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:51:19,255 autoreload 70609 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:52:35,623 autoreload 70609 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:52:35,949 autoreload 70709 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:53:37,028 autoreload 70709 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:53:37,342 autoreload 70786 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:53:59,778 autoreload 70786 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:54:00,087 autoreload 70820 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:55:05,115 autoreload 70820 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:55:05,437 autoreload 70900 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:56:14,396 autoreload 70900 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:56:14,718 autoreload 70988 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:56:26,971 autoreload 70988 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:56:27,393 autoreload 71013 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:56:29,536 autoreload 71013 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:56:29,781 autoreload 71022 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 21:58:38,838 autoreload 71022 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 21:58:39,166 autoreload 71183 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 22:43:31,085 autoreload 74499 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 22:56:35,588 autoreload 75622 8516132992 Watching for file changes with StatReloader

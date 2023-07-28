@@ -143,14 +143,26 @@ class Details(models.Model):
         self.barcode_image.save(filename, File(f)) """
 
 
+class Batch(models.Model):
+    product = models.ForeignKey(Details, on_delete=models.CASCADE)
+    batch_number = models.CharField(max_length=100, unique=True)
+    quantity = models.IntegerField()
+    manufacturing_date = models.DateField()
+    expiry_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.product} - Batch: {self.batch_number} - Qty: {self.quantity}"
+
+
 class Stock(models.Model):
     product = models.OneToOneField(Details, on_delete=models.CASCADE)
-    sub_category = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     reorder_level = models.IntegerField(default=0, blank=True, null=True)
-    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=1)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.product
 
 
 class Transaction(models.Model):
@@ -164,12 +176,22 @@ class Transaction(models.Model):
     tran_date = models.DateField(auto_now_add=True)
     product = models.ForeignKey(Details, on_delete=models.CASCADE)
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
+    batch = models.ForeignKey(Batch, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.IntegerField()
     sale_id = models.IntegerField(
         null=True, blank=True
     )  # Related sale ID for Return Inward
     updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     timestamp = models.DateTimeField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        stock = self.product
+        if self.transaction_type == "purchase":
+            stock.quantity += self.quantity
+        else:
+            stock.quantity -= self.quantity
+
+        super().save(*args, **kwargs)  # Call original save() method
 
     def __str__(self):
         return f"{self.transaction_type} - {self.product} ({self.quantity})"
