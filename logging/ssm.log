@@ -5021,3 +5021,10 @@ INFO 2023-07-28 16:48:28,251 autoreload 46135 8516132992 Watching for file chang
 INFO 2023-07-28 16:48:43,533 basehttp 46135 6136082432 "GET /product/subcategory_list/?page=3 HTTP/1.1" 200 19936
 INFO 2023-07-28 16:48:43,554 basehttp 46135 6152908800 "GET /static/assets/js/custom.js HTTP/1.1" 200 1231
 INFO 2023-07-28 16:48:43,555 basehttp 46135 6136082432 "GET /static/assets/css/style.css HTTP/1.1" 200 160960
+INFO 2023-07-28 19:25:16,589 basehttp 46135 6136082432 "GET /product/subcategory_list/ HTTP/1.1" 200 21970
+INFO 2023-07-28 19:25:16,927 basehttp 46135 6152908800 "GET /static/assets/js/custom.js HTTP/1.1" 200 1231
+INFO 2023-07-28 19:25:16,946 basehttp 46135 6136082432 "GET /static/assets/css/style.css HTTP/1.1" 200 160960
+INFO 2023-07-28 19:25:17,054 basehttp 46135 6152908800 - Broken pipe from ('127.0.0.1', 64390)
+INFO 2023-07-28 19:25:17,055 basehttp 46135 6136082432 - Broken pipe from ('127.0.0.1', 64385)
+INFO 2023-07-28 19:25:58,082 basehttp 46135 6136082432 "GET /product/subcategory_list/?page=2 HTTP/1.1" 200 22114
+INFO 2023-07-28 19:26:00,621 basehttp 46135 6136082432 "GET /product/subcategory_list/?page=3 HTTP/1.1" 200 19936
