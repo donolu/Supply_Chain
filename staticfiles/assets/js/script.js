@@ -13,7 +13,6 @@ $(document).ready(function () {
     if ($('.toggle-password').length > 0) { $(document).on('click', '.toggle-password', function () { $(this).toggleClass("fa-eye fa-eye-slash"); var input = $(".pass-input"); if (input.attr("type") == "password") { input.attr("type", "text"); } else { input.attr("type", "password"); } }); }
     if ($('.toggle-passwords').length > 0) { $(document).on('click', '.toggle-passwords', function () { $(this).toggleClass("fa-eye fa-eye-slash"); var input = $(".pass-inputs"); if (input.attr("type") == "password") { input.attr("type", "text"); } else { input.attr("type", "password"); } }); }
     if ($('.toggle-passworda').length > 0) { $(document).on('click', '.toggle-passworda', function () { $(this).toggleClass("fa-eye fa-eye-slash"); var input = $(".pass-inputs"); if (input.attr("type") == "password") { input.attr("type", "text"); } else { input.attr("type", "password"); } }); }
-    if ($('.select').length > 0) { $('.select').select2({ minimumResultsForSearch: -1, width: '100%' }); }
     if ($('.counter').length > 0) { $('.counter').counterUp({ delay: 20, time: 2000 }); }
     if ($('#timer-countdown').length > 0) { $('#timer-countdown').countdown({ from: 180, to: 0, movingUnit: 1000, timerEnd: undefined, outputPattern: '$day Day $hour : $minute : $second', autostart: true }); }
     if ($('#timer-countup').length > 0) { $('#timer-countup').countdown({ from: 0, to: 180 }); }

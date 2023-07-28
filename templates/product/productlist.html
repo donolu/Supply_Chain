@@ -90,6 +90,9 @@
                         <td>{{product.created_by.get_full_name}}</td>
                         <td>{{product.created_on|date:"Y-m-d h:i:s A"}}</td>
                         <td>
+                            <a class="me-3" href="{% url 'product-detail' product.id %}">
+                                <img src="{% static 'assets/img/icons/eye.svg' %}" alt="img">
+                            </a>
                             <a class="me-3" href="{% url 'product_update' product.id %}">
                                 <img src="{% static 'assets/img/icons/edit.svg' %}" alt="img">
                             </a>
@@ -111,8 +114,8 @@
             <ul class="pagination">
                 {% if page.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1"
-                        aria-disabled="false">Previous</a>
+                    <a class="page-link" href="{% url 'product_list' %}?page={{ page.previous_page_number }}"
+                        tabindex="-1" aria-disabled="false">Previous</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
@@ -123,19 +126,19 @@
                 {% for num in page.paginator.page_range %}
                 {% if page.number == num %}
                 <li class="page-item {% if page.number == num %}active{% endif %}" aria-current="page">
-                    <a class="page-link" href="?page={{ num }}"
+                    <a class="page-link" href="{% url 'product_list' %}?page={{ num }}"
                         style="background-color: #ff9f43; color: white;">{{num}}</a>
                 </li>
                 {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    <a class="page-link" href="{% url 'product_list' %}?page={{ num }}">{{ num }}</a>
                 </li>
                 {% endif %}
                 {% endfor %}
 
                 {% if page.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
+                    <a class="page-link" href="{% url 'product_list' %}?page={{ page.next_page_number }}">Next</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">

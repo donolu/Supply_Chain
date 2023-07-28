@@ -63,6 +63,7 @@ class ProductForm(forms.ModelForm):
 
         self.fields["sub_category"].queryset = Subcategory.objects.none()
         self.fields["category_name"].empty_label = "Choose Category"
+        self.fields["sub_category"].empty_label = "Choose Sub Category"
         self.fields["unit"].empty_label = "Choose Unit"
 
         # Set the SKU field as readonly

@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProductForm, TransactionForm, CategoryForm, SubcategoryForm
 from .models import Details, Stock, Transaction, Category, Subcategory
-from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import datetime
@@ -104,7 +103,9 @@ def subcategory_delete(request, id):
 
 def getsubcategories(request):
     category_id = request.GET.get("category_name_id")
-    subcategories = Subcategory.objects.filter(category_name_id=category_id)
+    subcategories = Subcategory.objects.filter(category_name_id=category_id).order_by(
+        "name"
+    )
     return render(
         request, "product/subcategory_dropdown.html", {"subcategories": subcategories}
     )
@@ -156,11 +157,19 @@ def product_form(request, id=None):
                 logger.exception("Error saving product form: %s", e)
         else:
             # Print the form errors to the console
-            print(form.errors.as_data())
+            # print(form.errors.as_data())
             # Alternatively, you can log the form errors using the logging module
-            logger = logging.getLogger("django")
             logger.error(form.errors.as_json())
+
+            # Pass the form errors to the template context
+            context = {"form": form}
+            return render(request, "product/addproduct.html", context)
         return redirect("product_list")
+
+
+def product_detail(request, pk):
+    product = get_object_or_404(Details, pk=pk)
+    return render(request, "product/product-details.html", {"product": product})
 
 
 @login_required

@@ -101,44 +101,46 @@
             </table>
         </div>
     </div>
-            <!-- Display pagination links -->
-<div style="text-align: left; margin-bottom: 10px;">
-    <nav aria-label="Pagination">
-        <ul class="pagination">
-            {% if page.has_previous %}
+    <!-- Display pagination links -->
+    <div style="text-align: left; margin-bottom: 10px;">
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                {% if page.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="false">Previous</a>
+                    <a class="page-link" href="{% url 'subcategory_list' %}?page={{ page.previous_page_number }}"
+                        tabindex="-1" aria-disabled="false">Previous</a>
                 </li>
-            {% else %}
+                {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
                 </li>
-            {% endif %}
-
-            {% for num in page.paginator.page_range %}
-                {% if page.number == num %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="?page={{ num }}" style="background-color: #ff9f43; color: white;">{{ num }}</a>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                    </li>
                 {% endif %}
-            {% endfor %}
 
-            {% if page.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
+                {% for num in page.paginator.page_range %}
+                {% if page.number == num %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="{% url 'subcategory_list' %}?page={{ num }}"
+                        style="background-color: #ff9f43; color: white;">{{num}}</a>
                 </li>
-            {% else %}
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'subcategory_list' %}?page={{ num }}">{{num}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'subcategory_list' %}?page={{ page.next_page_number }}">Next</a>
+                </li>
+                {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Next</span>
                 </li>
-            {% endif %}
-        </ul>
-    </nav>
-</div>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 
 
 </div>
