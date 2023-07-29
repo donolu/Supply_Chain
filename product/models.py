@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.core.files.storage import default_storage
-
-# from django.core.files import File
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from barcode import get_barcode_class
 from barcode.writer import ImageWriter
 from io import BytesIO
@@ -11,8 +11,6 @@ import logging
 
 
 # Create your models here.
-
-
 class Category(models.Model):
     category_name = models.CharField(max_length=50, unique=True)
     category_code = models.CharField(max_length=50, unique=False, null=True)
@@ -23,6 +21,10 @@ class Category(models.Model):
     updated_on = models.DateTimeField(
         auto_now=True, blank=True
     )  # Set to current datetime on every save (insert or update)
+
+    class Meta:
+        verbose_name = "category"
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return self.category_name
@@ -40,6 +42,10 @@ class Subcategory(models.Model):
     updated_on = models.DateTimeField(
         auto_now=True, blank=True
     )  # Set to current datetime on every save (insert or update)
+
+    class Meta:
+        verbose_name = "subcategory"
+        verbose_name_plural = "subcategories"
 
     def __str__(self):
         return self.name
@@ -72,6 +78,10 @@ class Details(models.Model):
     updated_on = models.DateTimeField(
         auto_now=True, blank=True, null=True
     )  # Set to current datetime on every save (insert or update)
+
+    class Meta:
+        verbose_name = "details"
+        verbose_name_plural = "details"
 
     def save(self, *args, **kwargs):
         if not self.sku:
@@ -146,9 +156,13 @@ class Details(models.Model):
 class Batch(models.Model):
     product = models.ForeignKey(Details, on_delete=models.CASCADE)
     batch_number = models.CharField(max_length=100, unique=True)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(null=True, blank=True)
     manufacturing_date = models.DateField()
     expiry_date = models.DateField()
+
+    class Meta:
+        verbose_name = "batch"
+        verbose_name_plural = "batches"
 
     def __str__(self):
         return f"{self.product} - Batch: {self.batch_number} - Qty: {self.quantity}"
@@ -156,13 +170,46 @@ class Batch(models.Model):
 
 class Stock(models.Model):
     product = models.OneToOneField(Details, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, blank=True)
+    sub_category = models.ForeignKey(
+        Subcategory, on_delete=models.DO_NOTHING, blank=True
+    )
     quantity = models.PositiveIntegerField(default=0)
     reorder_level = models.IntegerField(default=0, blank=True, null=True)
-    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True)
-    last_updated = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    last_updated = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.product
+
+
+# Signal to create or update Stock object when a new Details object is created or updated
+@receiver(post_save, sender=Details)
+def create_or_update_stock(sender, instance, created, **kwargs):
+    try:
+        stock = Stock.objects.get(product=instance)
+        stock.category = instance.category_name
+        stock.sub_category = instance.sub_category
+        stock.updated_by = instance.created_by
+        stock.save()
+    except Stock.DoesNotExist:
+        Stock.objects.create(
+            product=instance,
+            category=instance.category_name,
+            sub_category=instance.sub_category,
+            updated_by=instance.created_by,
+        )
+
+
+# Signal to update Stock object when a Details object is deleted
+@receiver(post_delete, sender=Details)
+def delete_stock(sender, instance, **kwargs):
+    try:
+        stock = Stock.objects.get(product=instance)
+        stock.delete()
+    except Stock.DoesNotExist:
+        pass
 
 
 class Transaction(models.Model):

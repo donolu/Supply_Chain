@@ -5061,3 +5061,173 @@ INFO 2023-07-28 21:58:38,838 autoreload 71022 8516132992 /Users/deji/Dev/Supply_
 INFO 2023-07-28 21:58:39,166 autoreload 71183 8516132992 Watching for file changes with StatReloader
 INFO 2023-07-28 22:43:31,085 autoreload 74499 8516132992 Watching for file changes with StatReloader
 INFO 2023-07-28 22:56:35,588 autoreload 75622 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:12:40,554 autoreload 75622 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:12:40,937 autoreload 76926 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:17:39,646 autoreload 76926 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:17:40,023 autoreload 77276 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:18:12,668 autoreload 77276 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:18:13,017 autoreload 77322 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:18:42,509 autoreload 77322 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:18:42,817 autoreload 77365 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:40:18,590 autoreload 79679 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:40:22,601 basehttp 79679 6170587136 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:40:22,657 basehttp 79679 6170587136 "GET /static/assets/css/style.css HTTP/1.1" 200 160960
+INFO 2023-07-28 23:40:22,665 basehttp 79679 6221066240 "GET /static/assets/js/custom.js HTTP/1.1" 200 1231
+INFO 2023-07-28 23:40:22,666 basehttp 79679 6204239872 "GET /static/assets/css/custom.css HTTP/1.1" 200 1427
+INFO 2023-07-28 23:40:22,668 basehttp 79679 6170587136 "GET /static/assets/js/script.js HTTP/1.1" 200 15925
+INFO 2023-07-28 23:40:22,668 basehttp 79679 6254718976 "GET /static/assets/js/bootstrap.bundle.min.js HTTP/1.1" 200 89657
+INFO 2023-07-28 23:40:22,669 basehttp 79679 6237892608 "GET /static/assets/js/feather.min.js HTTP/1.1" 200 81447
+INFO 2023-07-28 23:40:22,669 basehttp 79679 6187413504 "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 200 218736
+INFO 2023-07-28 23:40:22,671 basehttp 79679 6254718976 "GET /static/assets/img/icons/eye.svg HTTP/1.1" 200 654
+INFO 2023-07-28 23:40:22,672 basehttp 79679 6237892608 "GET /static/assets/img/DebNashLogo.png HTTP/1.1" 200 86232
+INFO 2023-07-28 23:40:22,694 basehttp 79679 6187413504 "GET /static/assets/img/favicon.jpg HTTP/1.1" 200 12229
+INFO 2023-07-28 23:40:22,694 basehttp 79679 6187413504 - Broken pipe from ('127.0.0.1', 50457)
+INFO 2023-07-28 23:40:43,477 basehttp 79679 6170587136 "GET /product/product_list/?page=3 HTTP/1.1" 200 21174
+INFO 2023-07-28 23:40:59,832 basehttp 79679 6170587136 "GET /product/product_list/?page=2 HTTP/1.1" 200 23911
+INFO 2023-07-28 23:41:03,102 basehttp 79679 6170587136 "GET /product/product_list/?page=3 HTTP/1.1" 200 21174
+INFO 2023-07-28 23:41:05,761 basehttp 79679 6170587136 "GET /product/product_list/?page=2 HTTP/1.1" 200 23911
+INFO 2023-07-28 23:41:09,399 basehttp 79679 6170587136 "GET /product/product_list/?page=1 HTTP/1.1" 200 23822
+INFO 2023-07-28 23:41:13,373 basehttp 79679 6170587136 "GET /product/create_product/ HTTP/1.1" 200 19266
+INFO 2023-07-28 23:41:21,723 basehttp 79679 6170587136 "GET /product/getsubcategories/?category_name_id=1 HTTP/1.1" 200 368
+ERROR 2023-07-28 23:41:30,127 views 79679 6170587136 Error saving product form: 'Details' object has no attribute 'category'
+Traceback (most recent call last):
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 175, in create_or_update_stock
+    stock = Stock.objects.get(product=instance)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/query.py", line 637, in get
+    raise self.model.DoesNotExist(
+product.models.Stock.DoesNotExist: Stock matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/deji/Dev/Supply_Chain/product/views.py", line 154, in product_form
+    form.save()
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/forms/models.py", line 542, in save
+    self.instance.save()
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 79, in save
+    self.generate_barcode()
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 134, in generate_barcode
+    self.barcode_image.save(filename, barcode_buffer)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/fields/files.py", line 99, in save
+    self.instance.save()
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 81, in save
+    super().save(*args, **kwargs)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/base.py", line 892, in save_base
+    post_save.send(
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/dispatch/dispatcher.py", line 176, in send
+    return [
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/dispatch/dispatcher.py", line 177, in <listcomp>
+    (receiver, receiver(signal=self, sender=sender, **named))
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 182, in create_or_update_stock
+    category=instance.category,
+AttributeError: 'Details' object has no attribute 'category'
+INFO 2023-07-28 23:41:30,131 basehttp 79679 6170587136 "POST /product/create_product/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:41:30,143 basehttp 79679 6170587136 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:42:44,784 basehttp 79679 6170587136 "GET /product/product_list/?page=2 HTTP/1.1" 200 23911
+INFO 2023-07-28 23:42:48,284 basehttp 79679 6170587136 "GET /product/product_list/?page=3 HTTP/1.1" 200 22538
+INFO 2023-07-28 23:47:52,944 autoreload 79679 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:47:53,335 autoreload 80276 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:48:08,859 basehttp 80276 6197358592 "GET /product/product_delete/26/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:48:08,887 basehttp 80276 6197358592 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:48:08,957 basehttp 80276 6197358592 - Broken pipe from ('127.0.0.1', 50577)
+INFO 2023-07-28 23:48:11,782 basehttp 80276 6197358592 "GET /product/create_product/ HTTP/1.1" 200 19266
+INFO 2023-07-28 23:48:11,842 basehttp 80276 6197358592 - Broken pipe from ('127.0.0.1', 50578)
+INFO 2023-07-28 23:48:20,244 basehttp 80276 6197358592 "GET /product/getsubcategories/?category_name_id=1 HTTP/1.1" 200 368
+ERROR 2023-07-28 23:48:26,446 views 80276 6197358592 Error saving product form: 'Details' object has no attribute 'category'
+Traceback (most recent call last):
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 175, in create_or_update_stock
+    stock = Stock.objects.get(product=instance)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/query.py", line 637, in get
+    raise self.model.DoesNotExist(
+product.models.Stock.DoesNotExist: Stock matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/deji/Dev/Supply_Chain/product/views.py", line 154, in product_form
+    form.save()
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/forms/models.py", line 542, in save
+    self.instance.save()
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 79, in save
+    self.generate_barcode()
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 134, in generate_barcode
+    self.barcode_image.save(filename, barcode_buffer)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/fields/files.py", line 99, in save
+    self.instance.save()
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 81, in save
+    super().save(*args, **kwargs)
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/db/models/base.py", line 892, in save_base
+    post_save.send(
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/dispatch/dispatcher.py", line 176, in send
+    return [
+  File "/Users/deji/Dev/Supply_Chain/venv/lib/python3.10/site-packages/django/dispatch/dispatcher.py", line 177, in <listcomp>
+    (receiver, receiver(signal=self, sender=sender, **named))
+  File "/Users/deji/Dev/Supply_Chain/product/models.py", line 182, in create_or_update_stock
+    category=instance.category,
+AttributeError: 'Details' object has no attribute 'category'
+INFO 2023-07-28 23:48:26,449 basehttp 80276 6197358592 "POST /product/create_product/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:48:26,465 basehttp 80276 6197358592 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:48:30,520 basehttp 80276 6197358592 "GET /product/product_list/?page=2 HTTP/1.1" 200 23911
+INFO 2023-07-28 23:48:32,702 basehttp 80276 6197358592 "GET /product/product_list/?page=3 HTTP/1.1" 200 22538
+INFO 2023-07-28 23:51:07,229 autoreload 80578 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:51:10,641 basehttp 80578 6122909696 "GET /product/create_product/ HTTP/1.1" 200 19266
+INFO 2023-07-28 23:51:19,507 basehttp 80578 6122909696 "GET /product/getsubcategories/?category_name_id=1 HTTP/1.1" 200 368
+ERROR 2023-07-28 23:51:23,914 views 80578 6122909696 {"productname": [{"message": "Details with this Productname already exists.", "code": "unique"}]}
+INFO 2023-07-28 23:51:23,923 basehttp 80578 6122909696 "POST /product/create_product/ HTTP/1.1" 200 19771
+INFO 2023-07-28 23:51:28,650 basehttp 80578 6122909696 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:51:30,623 basehttp 80578 6122909696 "GET /product/product_list/?page=2 HTTP/1.1" 200 23911
+INFO 2023-07-28 23:51:32,133 basehttp 80578 6122909696 "GET /product/product_list/?page=3 HTTP/1.1" 200 22538
+INFO 2023-07-28 23:51:37,665 basehttp 80578 6122909696 "GET /product/product_delete/27/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:51:37,685 basehttp 80578 6122909696 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:51:40,766 basehttp 80578 6122909696 "GET /product/create_product/ HTTP/1.1" 200 19266
+INFO 2023-07-28 23:51:49,647 basehttp 80578 6122909696 "GET /product/getsubcategories/?category_name_id=1 HTTP/1.1" 200 368
+INFO 2023-07-28 23:51:53,666 views 80578 6122909696 Product form save successfully.
+INFO 2023-07-28 23:51:53,666 basehttp 80578 6122909696 "POST /product/create_product/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:51:53,680 basehttp 80578 6122909696 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:51:57,236 basehttp 80578 6122909696 "GET /product/product_list/?page=3 HTTP/1.1" 200 22538
+INFO 2023-07-28 23:56:26,521 autoreload 80578 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:56:26,893 autoreload 81018 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:56:50,344 autoreload 81018 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-28 23:56:50,645 autoreload 81058 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-28 23:57:21,228 basehttp 81058 6201618432 "GET /product/product_delete/28/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:57:21,259 basehttp 81058 6201618432 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-28 23:57:58,705 basehttp 81058 6201618432 "GET /product/create_product/ HTTP/1.1" 200 19266
+INFO 2023-07-28 23:58:05,959 basehttp 81058 6201618432 "GET /product/getsubcategories/?category_name_id=1 HTTP/1.1" 200 368
+INFO 2023-07-28 23:58:12,453 views 81058 6201618432 Product form save successfully.
+INFO 2023-07-28 23:58:12,453 basehttp 81058 6201618432 "POST /product/create_product/ HTTP/1.1" 302 0
+INFO 2023-07-28 23:58:12,469 basehttp 81058 6201618432 "GET /product/product_list/ HTTP/1.1" 200 23822
+INFO 2023-07-29 13:51:19,950 basehttp 81058 6201618432 "GET /product/product_list/?page=2 HTTP/1.1" 200 23911
+INFO 2023-07-29 13:51:20,008 basehttp 81058 6201618432 "GET /static/assets/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,009 basehttp 81058 6201618432 "GET /static/assets/js/script.js HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,017 basehttp 81058 6218444800 "GET /static/assets/css/style.css HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,019 basehttp 81058 6268923904 "GET /static/assets/js/feather.min.js HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,020 basehttp 81058 6252097536 "GET /static/assets/js/htmx.min.js HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,020 basehttp 81058 6201618432 "GET /static/assets/js/custom.js HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,020 basehttp 81058 6235271168 "GET /static/assets/css/custom.css HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,020 basehttp 81058 6285750272 "GET /static/assets/js/bootstrap.bundle.min.js HTTP/1.1" 304 0
+INFO 2023-07-29 13:51:20,036 basehttp 81058 6218444800 "GET /static/assets/img/DebNashLogo.png HTTP/1.1" 200 86232
+INFO 2023-07-29 14:01:35,672 basehttp 81058 6201618432 "GET /accounts/profile/ HTTP/1.1" 200 15959
+INFO 2023-07-29 14:01:35,702 basehttp 81058 6218444800 "GET /static/assets/img/icons/edit-set.svg HTTP/1.1" 200 286
+INFO 2023-07-29 14:01:35,703 basehttp 81058 6201618432 "GET /static/assets/img/customer/customer5.jpg HTTP/1.1" 200 10728
+INFO 2023-07-29 14:01:35,738 basehttp 81058 6218444800 "GET /static/assets/img/favicon.jpg HTTP/1.1" 200 12229
+INFO 2023-07-29 14:01:35,738 basehttp 81058 6218444800 - Broken pipe from ('127.0.0.1', 54851)
+INFO 2023-07-29 16:37:39,359 autoreload 81058 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-29 16:37:39,831 autoreload 1157 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-29 16:38:15,341 autoreload 1157 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-29 16:38:15,699 autoreload 1208 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-29 16:39:17,602 autoreload 1208 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-29 16:39:17,967 autoreload 1284 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-29 16:39:51,600 autoreload 1284 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-29 16:39:51,942 autoreload 1354 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-29 16:40:32,544 autoreload 1354 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-29 16:40:32,893 autoreload 1409 8516132992 Watching for file changes with StatReloader
+INFO 2023-07-29 16:41:29,023 autoreload 1409 8516132992 /Users/deji/Dev/Supply_Chain/product/models.py changed, reloading.
+INFO 2023-07-29 16:41:29,418 autoreload 1486 8516132992 Watching for file changes with StatReloader
